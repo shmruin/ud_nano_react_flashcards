@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native'
-import { createMaterialTopTabNavigator, createStackNavigator, SafeAreaView } from 'react-navigation'
+import { createMaterialTopTabNavigator, createStackNavigator, SafeAreaView, HeaderBackButton } from 'react-navigation'
 import { white } from './utils/colors'
 import DeckListView from './components/DeckListView'
 import NewDeckView from './components/NewDeckView'
@@ -8,6 +8,8 @@ import { Constants } from 'expo'
 import { setDummyData } from './utils/api'
 import IndividualDeckView from './components/IndividualDeckView'
 import QuizView from './components/QuizView'
+import QuizResult from './components/QuizResult'
+import NewQuestion from './components/NewQuestionView'
 
 
 function FlashCardStatusBar ({backgroundColor, ...props}) {
@@ -49,7 +51,7 @@ const Stacks = createStackNavigator({
   DeckDetail: { 
     screen: IndividualDeckView,
     navigationOptions: ({ navigation }) => ({
-      title: 'Give me the Deck title',
+      title: navigation.state.params.title,
       headerStyle: { height: 56 },
       headerTitleStyle: { textAlign: 'left', flex: 1 }
     })
@@ -57,7 +59,24 @@ const Stacks = createStackNavigator({
   Quiz: {
     screen: QuizView,
     navigationOptions: ({ navigation }) => ({
-      title: 'Give me the Quiz title',
+      title: 'Quiz',
+      headerStyle: { height: 56 },
+      headerTitleStyle: { textAlign: 'left', flex: 1 },
+    })
+  },
+  QuizResult: {
+    screen: QuizResult,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Quiz Result',
+      headerStyle: { height: 56 },
+      headerTitleStyle: { textAlign: 'left', flex: 1 },
+      headerLeft: <HeaderBackButton onPress={() => navigation.navigate('Home')} />
+    })
+  },
+  NewQuestion: {
+    screen: NewQuestion,
+    navigationOptions: ({ navigation }) => ({
+      title: 'Add A New Card',
       headerStyle: { height: 56 },
       headerTitleStyle: { textAlign: 'left', flex: 1 },
     })

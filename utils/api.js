@@ -19,10 +19,22 @@ export function submitDeck(title) {
     }))
 }
 
-export function submitCard({title, card}) {
-    return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-        [title] : card,
-    }))
+export function submitCard(id, card, callback) {
+
+    return AsyncStorage.getItem(DECKS_STORAGE_KEY, (err, result) => {
+        var exQuestions = JSON.parse(result)[id].questions
+        exQuestions.push(card)
+
+        AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
+            [id]: {
+                questions: exQuestions,
+            }
+        }), () => {
+            AsyncStorage.getItem(DECKS_STORAGE_KEY, (err, result) => {
+                callback(result)
+            })
+        })
+    })
 }
 
 export function setDummyData() {

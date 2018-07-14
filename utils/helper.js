@@ -18,6 +18,6 @@ export function saveDeckTitle(title) {
 }
 
 //take in two arguments, title and card, and will add the card to the list of questions for the deck with the associated title. 
-export function addCardToDeck(title, card) {
-    return submitCard(title, card)
+export function addCardToDeck(id, card, callback) {
+    return submitCard(id, card, callback)
 }
