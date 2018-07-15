@@ -1,11 +1,12 @@
 import React from 'react'
 import { StyleSheet, Text, View, Platform, StatusBar } from 'react-native'
 import { createMaterialTopTabNavigator, createStackNavigator, SafeAreaView, HeaderBackButton } from 'react-navigation'
+import { Constants } from 'expo'
+import { setDummyData } from './utils/api'
+import { setNotification } from './utils/helper'
 import { white } from './utils/colors'
 import DeckListView from './components/DeckListView'
 import NewDeckView from './components/NewDeckView'
-import { Constants } from 'expo'
-import { setDummyData } from './utils/api'
 import IndividualDeckView from './components/IndividualDeckView'
 import QuizView from './components/QuizView'
 import QuizResult from './components/QuizResult'
@@ -87,6 +88,7 @@ export default class App extends React.Component {
 
   componentDidMount = () => {
     setDummyData()
+    setNotification()
 
     if (Platform.OS === "android") {
       SafeAreaView.setStatusBarHeight(0);

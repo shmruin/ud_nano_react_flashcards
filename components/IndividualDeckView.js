@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, Alert } from 'react-native'
-import { white, black, gray } from '../utils/colors'
+import { StyleSheet, Text, View, Alert, TouchableOpacity } from 'react-native'
+import { white, black, gray, red } from '../utils/colors'
+import { removeDeck } from '../utils/helper'
 import TextButton from './TextButton'
+import { Ionicons } from '@expo/vector-icons'
 
 
 class IndividualDeckView extends Component {
@@ -27,6 +29,21 @@ class IndividualDeckView extends Component {
         }
     }
 
+    removeThisDeck = (id, title) => {
+        Alert.alert(
+            `Do you want to remove ${title} deck?`,
+            'All cards will also be removed',
+            [{ text: 'YES', onPress: () => {removeDeck(id, this.removeDeckCallback)}},
+             { text: 'NO' },
+            ],
+            { cancelable: false },
+        )
+    }
+
+    removeDeckCallback = (result) => {
+        this.props.navigation.navigate('Home')
+    }
+
     render() {
 
         const { navigation } = this.props
@@ -36,6 +53,9 @@ class IndividualDeckView extends Component {
 
         return (
             <View style={styles.container}>
+                <TouchableOpacity style={styles.deckDeleteBtn} onPress={() => this.removeThisDeck(deckId, deckTitle)}>
+                    <Ionicons name="md-trash" size={20} color="black" />
+                </TouchableOpacity>
                 <View style={styles.deckMain}>
                     <Text style={[styles.listText, { fontSize: 25 }]}>{deckTitle}</Text>
                     <Text style={[styles.listText, { color: gray }]}>{cardNumbers} cards</Text>
@@ -63,6 +83,11 @@ const styles = StyleSheet.create({
     },
     listText: {
         textAlign: 'center',
+    },
+    deckDeleteBtn: {
+        alignSelf: 'flex-end',
+        width: 25,
+        marginRight: 20,
     }
 })
 
