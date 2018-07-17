@@ -42,7 +42,7 @@ class DeckListView extends Component {
                 {  
                     rows !== null
                     ? Object.keys(rows).map((item, index) => (
-                        <DeckListRow key={index} id={item} title={rows[item].title} numbers={rows[item].questions.length} clickDetail={this.clickDetail}/>
+                        <DeckListRow key={index} id={item} title={rows[item].title} numbers={rows[item].questions.length || 0} clickDetail={this.clickDetail}/>
                     ))
                     : null
                 }

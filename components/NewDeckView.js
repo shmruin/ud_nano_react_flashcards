@@ -15,6 +15,8 @@ class NewDeckView extends Component {
             this.setState({
                 text: '',
             })
+
+            this.props.navigation.navigate('Deck')
         })
     }
 

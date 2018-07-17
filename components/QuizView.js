@@ -25,7 +25,10 @@ class QuizView extends Component {
     deckCreator = () => {
         getDecks().then((value) => {
             this.setState({
+                cardIdx: 0,
+                isQuestion: true,
                 rows: JSON.parse(value),
+                score: 0,
             })
         })
     }
